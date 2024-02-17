@@ -175,47 +175,56 @@ public class BetterBlueAuto extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
                 .build();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //middle trajectories
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(11,28,Math.toRadians(-90)))
+                .splineToSplineHeading(new Pose2d(11, 28, Math.toRadians(-90)), Math.toRadians(0))
+                .splineToSplineHeading(new Pose2d(41.5, 30, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .lineToLinearHeading(new Pose2d(41.5,31,Math.toRadians(180)))
+                .splineToConstantHeading(new Vector2d(35, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-13, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-40, 31), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-45, 31), Math.toRadians(180))
+
                 .build();
 
         Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(49,55,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-56,31,Math.toRadians(180)))
                 .build();
+        Trajectory trajectory4_MID = drive.trajectoryBuilder(trajectory3_MID.end())
+                .lineToLinearHeading(new Pose2d(-45,31,Math.toRadians(180)))
+                .build();
+        Trajectory trajectory5_MID = drive.trajectoryBuilder(trajectory4_MID.end())
+                .splineToConstantHeading(new Vector2d(15, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(41, 31), Math.toRadians(180))
+                .build();
+
 
 
 //right trajectories
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(11, 40), Math.toRadians(-90), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineTo(new Vector2d(4, 32), Math.toRadians(-150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .splineToSplineHeading(new Pose2d(17, 40, Math.toRadians(-90)), Math.toRadians(0))
+                .splineToSplineHeading(new Pose2d(0, 37, Math.toRadians(-90)), Math.toRadians(0))
+                .splineToSplineHeading(new Pose2d(41.5, 36, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(41.5, 26, Math.toRadians(180)))
+                .splineToConstantHeading(new Vector2d(3, 57), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-32, 57), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-32, 38), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-45, 7), Math.toRadians(180))
                 .build();
 
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(49, 55, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-56,7,Math.toRadians(180)))
+                .build();
+        Trajectory trajectory4_RIGHT = drive.trajectoryBuilder(trajectory3_RIGHT.end())
+                .lineToLinearHeading(new Pose2d(-45,7,Math.toRadians(180)))
+                .build();
+        Trajectory trajectory5_RIGHT = drive.trajectoryBuilder(trajectory4_RIGHT.end())
+                .splineToConstantHeading(new Vector2d(15, 7), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
                 .build();
 
         ElapsedTime waitTimer1 = new ElapsedTime();
