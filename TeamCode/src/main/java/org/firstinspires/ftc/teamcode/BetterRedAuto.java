@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.BluePipeLine.Location.LEFT;
-import static org.firstinspires.ftc.teamcode.BluePipeLine.Location.MIDDLE;
-import static org.firstinspires.ftc.teamcode.BluePipeLine.Location.RIGHT;
+import static org.firstinspires.ftc.teamcode.RedPipeLine.Location.LEFT;
+import static org.firstinspires.ftc.teamcode.RedPipeLine.Location.MIDDLE;
+import static org.firstinspires.ftc.teamcode.RedPipeLine.Location.RIGHT;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -43,7 +43,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  * opmode only serves as an initial starting point.
  */
 @Autonomous(group = "advanced")
-public class BetterBlueAuto extends LinearOpMode {
+public class BetterRedAuto extends LinearOpMode {
 
     private DcMotor climbLeft    = null;  //  Left hanging actuator
     private DcMotor climbRight   = null;  //  Right hanging actuator
@@ -52,7 +52,7 @@ public class BetterBlueAuto extends LinearOpMode {
     private Servo clawUD = null; //Used to control the servo's up and down position
     private Servo clawLeft;
     private Servo clawRight;
-//    private Servo hookLeft; //Left hanging hook
+    //    private Servo hookLeft; //Left hanging hook
 //    private Servo hookRight; //Right hanging hook
     private int armStage = 0;
 
@@ -97,7 +97,7 @@ public class BetterBlueAuto extends LinearOpMode {
 
     // Define our start pose
     // This assumes we start at x: 15, y: 10, heading: 180 degrees
-    Pose2d startPose = new Pose2d(11, 61, Math.toRadians(-90));
+    Pose2d startPose = new Pose2d(11, -61, Math.toRadians(90));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -120,7 +120,7 @@ public class BetterBlueAuto extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        BluePipeLine detector = new BluePipeLine(telemetry);
+        RedPipeLine detector = new RedPipeLine(telemetry);
         webcam.setPipeline(detector);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
@@ -149,91 +149,91 @@ public class BetterBlueAuto extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .splineToSplineHeading(new Pose2d(21, 36, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(17, -40, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(0, -37, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .splineToSplineHeading(new Pose2d(41.5, -36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .splineToConstantHeading(new Vector2d(3, 57), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-34.5, 57), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-54, 38), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-45, 7), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(3, -57), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-34.5, -57), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-54, -38), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-45, -7), Math.toRadians(180))
                 .build();
 
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
-                .lineToLinearHeading(new Pose2d(-56,7,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-56,-7,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
-                .lineToLinearHeading(new Pose2d(-45,7,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-45,-7,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
-                .splineToConstantHeading(new Vector2d(15, 7), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(15, -7), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(41, -30), Math.toRadians(180))
                 .build();
 
 //middle trajectories
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
-                .splineToSplineHeading(new Pose2d(22, 50, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(22, -50, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(11, 28, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(15, -28, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(41.5, -30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-//                .splineToSplineHeading(new Pose2d(11, 28, Math.toRadians(-90)), Math.toRadians(0))
-//                .splineToSplineHeading(new Pose2d(41.5, 30, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .splineToConstantHeading(new Vector2d(35, 31), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-13, 31), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-40, 31), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-45, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(35, -31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-13, -31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-40, -31), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-45, -31), Math.toRadians(180))
 
                 .build();
 
         Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(-56,31,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-56,-31,Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_MID = drive.trajectoryBuilder(trajectory3_MID.end())
-                .lineToLinearHeading(new Pose2d(-45,31,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-45,-31,Math.toRadians(180)))
                 .build();
         Trajectory trajectory5_MID = drive.trajectoryBuilder(trajectory4_MID.end())
-                .splineToConstantHeading(new Vector2d(15, 31), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(15, -31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(41, -31), Math.toRadians(180))
                 .build();
 
 
 
 //right trajectories
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .splineToSplineHeading(new Pose2d(17, 40, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(22, -31.5, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(0, 37, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(41.5, -42, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 36, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+//                .splineToSplineHeading(new Pose2d(22, -31.5, Math.toRadians(90)), Math.toRadians(0))
+//                .splineToSplineHeading(new Pose2d(41.5, -42, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .splineToConstantHeading(new Vector2d(3, 57), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-32, 57), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-32, 38), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-45, 7), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(3, -60), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-32, -60), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-32, -38), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-45, -7), Math.toRadians(180))
                 .build();
 
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(-56,7,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-56,-7,Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_RIGHT = drive.trajectoryBuilder(trajectory3_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(-45,7,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-45,-7,Math.toRadians(180)))
                 .build();
         Trajectory trajectory5_RIGHT = drive.trajectoryBuilder(trajectory4_RIGHT.end())
-                .splineToConstantHeading(new Vector2d(15, 7), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(15, -7), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(41, -30), Math.toRadians(180))
                 .build();
 
         ElapsedTime waitTimer1 = new ElapsedTime();
@@ -289,7 +289,7 @@ public class BetterBlueAuto extends LinearOpMode {
                     case TRAJECTORY_1:
 
                         if (waitTimer2.seconds() >= 3.5) {
-                         armStage = 1;
+                            armStage = 1;
                         }
                         if (waitTimer2.seconds() >= 6) {
                             armStage = 2;
@@ -909,7 +909,7 @@ public class BetterBlueAuto extends LinearOpMode {
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.9);
             }
             if(armStage == 4) {
                 armDeployTarget = -609 ;
