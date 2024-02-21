@@ -70,15 +70,33 @@ public class BlueLeft extends LinearOpMode {
         TRAJECTORY_1,   // First, follow a splineTo() trajectory
         TRAJECTORY_2,   // Then, follow a lineTo() trajectory
         TRAJECTORY_3,
-        TRAJECTORY_1_MID,   // First, follow a splineTo() trajectory
-        TRAJECTORY_2_MID,   // Then, follow a lineTo() trajectory
-        TRAJECTORY_3_MID,
-        TRAJECTORY_1_R,   // First, follow a splineTo() trajectory
-        TRAJECTORY_2_R,   // Then, follow a lineTo() trajectory
-        TRAJECTORY_3_R,
+        TRAJECTORY_4,
+
+        TRAJECTORY_5,
+
+        TRAJECTORY_6,
+
+        TRAJECTORY_7,
+
+        TRAJECTORY_8,
+
+
+
         WAIT_0,         // Then, we follow another lineTo() trajectory
         WAIT_1,         // Then we're gonna wait a second
         WAIT_2,
+        WAIT_3,
+        WAIT_4,
+
+        WAIT_5,
+
+        WAIT_6,
+
+        WAIT_7,
+
+        WAIT_8,
+
+
         // Finally, we're gonna turn again
         IDLE            // Our bot will enter the IDLE state when done
     }
@@ -89,7 +107,7 @@ public class BlueLeft extends LinearOpMode {
 
     // Define our start pose
     // This assumes we start at x: 15, y: 10, heading: 180 degrees
-    Pose2d startPose = new Pose2d(15, -63, Math.toRadians(90));
+    Pose2d startPose = new Pose2d(-34, -61, Math.toRadians(-90));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -176,137 +194,67 @@ public class BlueLeft extends LinearOpMode {
 
         // Let's define our trajectories
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(11, -39), Math.toRadians(90), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineTo(new Vector2d(4, -32), Math.toRadians(150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .lineToLinearHeading(new Pose2d(-40, 32, Math.toRadians(-360)))
                 .build();
-
-        // Second trajectory
-        // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .back(10)
+                .lineToLinearHeading(new Pose2d(-35, 32, Math.toRadians(-360)))
+                .build();
+        //drop purple
+        Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
+                .lineToLinearHeading(new Pose2d(-40, 32, Math.toRadians(-360)))
+                .build();
+        Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
+                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
+                .build();
+        Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
+                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
+                .build();
+        Trajectory trajectory6 = drive.trajectoryBuilder(trajectory5.end())
+                .lineToLinearHeading(new Pose2d(52, 30, Math.toRadians(180)))
                 .build();
 
-        Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
-                .lineToLinearHeading(new Pose2d(44, -50, Math.toRadians(180)))
-                .build();
 
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(12, -30, Math.toRadians(90)))
-                .build();
+                .lineToLinearHeading(new Pose2d(-34, 36, Math.toRadians(-90)))
 
-        // Second trajectory
-        // Ensure that we call trajectory1.end() as the start for this one
+                .build();
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .back(10)
+                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
+
+                .build();
+        Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
+                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
+                .build();
+        Trajectory trajectory4_MID = drive.trajectoryBuilder(trajectory3_MID.end())
+                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(180)))
                 .build();
 
-        Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(47, -57, Math.toRadians(180)))
-                .build();
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(27, -36, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-47, 41, Math.toRadians(-90)))
                 .build();
-//                                .splineTo(new Vector2d(13, 40), Math.toRadians(-135))
-//                                .splineTo(new Vector2d(7, 36), Math.toRadians(-135))
-//                                .lineToLinearHeading(new Pose2d(44, 28, Math.toRadians(180)))
-//                                .lineToLinearHeading(new Pose2d(44, 57, Math.toRadians(180)))
-        // Second trajectory
-        // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .back(10)
+                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
                 .build();
-
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(44, -57, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
                 .build();
+        Trajectory trajectory4_RIGHT = drive.trajectoryBuilder(trajectory3_RIGHT.end())
+                .lineToLinearHeading(new Pose2d(52, 45, Math.toRadians(180)))
+                .build();
+        //drop yellow
 
-        // Define the angle to turn at
 
-        //double turnAngle1 = Math.toRadians(-270);
 
-        // Third trajectory
-        // We have to define a new end pose because we can't just call trajectory2.end()
-        // Since there was a point turn before that
-        // So we just take the pose from trajectory2.end(), add the previous turn angle to it
-//        Pose2d newLastPose = trajectory2.end().plus(new Pose2d(0, 0, turnAngle1));
-//        Trajectory trajectory3 = drive.trajectoryBuilder(newLastPose)
-//                .lineToConstantHeading(new Vector2d(-15, 0))
-//                .build();
 
-        // Define a 1.5 second wait time
-        //double waitTime1 = 1.5;
         ElapsedTime waitTimer1 = new ElapsedTime();
-
-        // Define the angle for turn 2
-        //double turnAngle2 = Math.toRadians(720);
-
-        // Our state machine logic
-        // You can have multiple switch statements running together for multiple state machines
-        // in parallel. This is the basic idea for subsystems and commands.
-
-        // We essentially define the flow of the state machine through this switch statement
-
-
 
         int pos = 0;
 
-
-
-//        while(pos == 0 && !isStopRequested()){
-//            if (!rateLimit.hasExpired()) {
-//                continue;
-//            }
-//            rateLimit.reset();
-//            HuskyLens.Block[] blocks = huskyLens.blocks();
-//            telemetry.addData("Block count", blocks.length);
-//            for (int i = 0; i < blocks.length; i++) {
-//                int colorXValue = blocks[i].x;
-//                int colorYValue = blocks[i].y;
-//
-//                globalY = colorYValue;
-//                globalX = colorXValue;
-//
-//
-//                telemetry.addData("Block", blocks[i].toString());
-//                telemetry.addData("color X", colorXValue );
-//                telemetry.addData("color Y", colorYValue );
-//
-//
-//            }
-//
-//            if(!((globalX > 0 && globalX < 320) && (globalY > 0 && globalY < 240))){
-//                pos = 1;
-//            }
-//
-//            if((globalX > 120 && globalX < 150) && (globalY > 120 && globalY < 150)){
-//                pos = 2;//middle
-//            }
-//
-//            if((globalX > 245 && globalX < 275) && (globalY > 145 && globalY < 175)){
-//                pos = 3;//right
-//            }
-//
-//            //261,161
-//
-//            telemetry.update();
-//        }
-//
-//        pos = 2;
-
-
         waitForStart();
-
-
 
         if (isStopRequested()) return;
 
-        // Set the current state to TRAJECTORY_1, our first step
-        // Then have it follow that trajectory
-        // Make sure you use the async version of the commands
-        // Otherwise it will be blocking and pause the program here until the trajectory finishes
         currentState = State.WAIT_0;
 
 
@@ -335,38 +283,118 @@ public class BlueLeft extends LinearOpMode {
                 switch (currentState) {
 
                     case WAIT_0:
-
                         if (waitTimer1.seconds() >= 1) {
                             currentState = State.TRAJECTORY_1;
                             drive.followTrajectoryAsync(trajectory1);
                         }
                         break;
-
                     case TRAJECTORY_1:
-                        // Check if the drive class isn't busy
-                        // `isBusy() == true` while it's following the trajectory
-                        // Once `isBusy() == false`, the trajectory follower signals that it is finished
-                        // We move on to the next state
-                        // Make sure we use the async follow function
                         if (!drive.isBusy()) {
                             currentState = State.WAIT_1;
                             waitTimer1.reset();
                         }
                         break;
-
                     case WAIT_1:
-
                         if (waitTimer1.seconds() >= 1) {
-                            armStage = 1;
-                        }
-
-                        if (waitTimer1.seconds() >= 2) {
                             currentState = State.TRAJECTORY_2;
                             drive.followTrajectoryAsync(trajectory2);
                         }
                         break;
+                    case TRAJECTORY_2:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_2;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_2:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_3;
+                            armStage = 1;
+                        }
+                        break;
+                    case TRAJECTORY_3:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_3;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_3:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_4;
+                            drive.followTrajectoryAsync(trajectory3);
+                        }
+                        break;
+                    case TRAJECTORY_4:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_4;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_4:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_5;
+                            drive.followTrajectoryAsync(trajectory4);
+                        }
+
+                        break;
+
+                    case TRAJECTORY_5:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_5;
+                            waitTimer1.reset();
+                        }
+                        break;
+
+                    case WAIT_5:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_6;
+                            drive.followTrajectoryAsync(trajectory5);
+                        }
+                        break;
+                    case TRAJECTORY_6:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_6;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_6:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_7;
+                            drive.followTrajectoryAsync(trajectory6);
+                        }
+                        break;
+                    case TRAJECTORY_7:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_7;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_7:
+                        if (waitTimer1.seconds() >= 1) {
+                            armStage = 2;
+                        }
+                        if (waitTimer1.seconds() >= 2.25) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
 
 
+                        }
+                        if (waitTimer1.seconds() >= 3.25) {
+                            waitTimer1.reset();
+                            currentState = State.TRAJECTORY_8;
+                        }
+                        break;
+                    case TRAJECTORY_8:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_8;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_8:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            armStage = 1;
+                        }
+                        break;
                 }
 
 
@@ -376,34 +404,93 @@ public class BlueLeft extends LinearOpMode {
                 switch (currentState) {
 
                     case WAIT_0:
-
                         if (waitTimer1.seconds() >= 1) {
-                            currentState = State.TRAJECTORY_1_MID;
+                            currentState = State.TRAJECTORY_1;
                             drive.followTrajectoryAsync(trajectory1_MID);
                         }
                         break;
-
-                    case TRAJECTORY_1_MID:
-                        // Check if the drive class isn't busy
-                        // `isBusy() == true` while it's following the trajectory
-                        // Once `isBusy() == false`, the trajectory follower signals that it is finished
-                        // We move on to the next state
-                        // Make sure we use the async follow function
+                    case TRAJECTORY_1:
                         if (!drive.isBusy()) {
                             currentState = State.WAIT_1;
                             waitTimer1.reset();
                         }
                         break;
-
                     case WAIT_1:
-
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_2;
                             armStage = 1;
                         }
-
-                        if (waitTimer1.seconds() >= 2) {
-                            currentState = State.TRAJECTORY_2_MID;
+                        break;
+                    case TRAJECTORY_2:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_2;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_2:
+                        if (waitTimer1.seconds() >= 1) {
+                            currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_MID);
+                        }
+
+                        break;
+                    case TRAJECTORY_3:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_3;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_3:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_4;
+                            drive.followTrajectoryAsync(trajectory3);
+                        }
+                        break;
+                    case TRAJECTORY_4:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_4;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_4:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_5;
+                            drive.followTrajectoryAsync(trajectory4);
+                        }
+
+                        break;
+
+                    case TRAJECTORY_5:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_5;
+                            waitTimer1.reset();
+                        }
+                        break;
+
+                    case WAIT_5:
+                        if (waitTimer1.seconds() >= 1) {
+                            armStage = 2;
+                        }
+                        if (waitTimer1.seconds() >= 2.25) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
+
+
+                        }
+                        if (waitTimer1.seconds() >= 3.25) {
+                            waitTimer1.reset();
+                            currentState = State.TRAJECTORY_6;
+                        }
+                        break;
+                    case TRAJECTORY_6:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_6;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_6:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            armStage = 1;
                         }
                         break;
 
@@ -414,34 +501,93 @@ public class BlueLeft extends LinearOpMode {
                 switch (currentState) {
 
                     case WAIT_0:
-
                         if (waitTimer1.seconds() >= 1) {
-                            currentState = State.TRAJECTORY_1_R;
+                            currentState = State.TRAJECTORY_1;
                             drive.followTrajectoryAsync(trajectory1_RIGHT);
                         }
                         break;
-
-                    case TRAJECTORY_1_R:
-                        // Check if the drive class isn't busy
-                        // `isBusy() == true` while it's following the trajectory
-                        // Once `isBusy() == false`, the trajectory follower signals that it is finished
-                        // We move on to the next state
-                        // Make sure we use the async follow function
+                    case TRAJECTORY_1:
                         if (!drive.isBusy()) {
                             currentState = State.WAIT_1;
                             waitTimer1.reset();
                         }
                         break;
-
                     case WAIT_1:
-
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_2;
                             armStage = 1;
                         }
-
-                        if (waitTimer1.seconds() >= 2) {
-                            currentState = State.TRAJECTORY_2_R;
+                        break;
+                    case TRAJECTORY_2:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_2;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_2:
+                        if (waitTimer1.seconds() >= 1) {
+                            currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_RIGHT);
+                        }
+
+                        break;
+                    case TRAJECTORY_3:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_3;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_3:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_4;
+                            drive.followTrajectoryAsync(trajectory3_RIGHT);
+                        }
+                        break;
+                    case TRAJECTORY_4:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_4;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_4:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            currentState = State.TRAJECTORY_5;
+                            drive.followTrajectoryAsync(trajectory4_RIGHT);
+                        }
+
+                        break;
+
+                    case TRAJECTORY_5:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_5;
+                            waitTimer1.reset();
+                        }
+                        break;
+
+                    case WAIT_5:
+                        if (waitTimer1.seconds() >= 1) {
+                            armStage = 2;
+                        }
+                        if (waitTimer1.seconds() >= 2.25) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
+
+
+                        }
+                        if (waitTimer1.seconds() >= 3.25) {
+                            waitTimer1.reset();
+                            currentState = State.TRAJECTORY_6;
+                        }
+                        break;
+                    case TRAJECTORY_6:
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_6;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_6:
+                        if (waitTimer1.seconds() >= 0.5) {
+                            armStage = 1;
                         }
                         break;
 

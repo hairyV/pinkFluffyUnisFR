@@ -30,10 +30,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Config
-@TeleOp(name="NoDistTele", group = "Concept")
+@TeleOp(name="NoDistTeleOp", group = "Concept")
 //@Disabled
-public class NoDistTele extends LinearOpMode
-{
+public class NoDistTele extends LinearOpMode {
     //Instantiate PID controllers for arm and wind motors
     private PIDController armController;
     private PIDController windController;
@@ -68,7 +67,7 @@ public class NoDistTele extends LinearOpMode
     private Servo hookRight; //Right hanging hook
     private Servo launch;
 
-    boolean clampClose = false;
+    boolean clampClose = true;
     int armStage = 1;
     ElapsedTime liftTimer = new ElapsedTime();
 
@@ -184,6 +183,11 @@ public class NoDistTele extends LinearOpMode
                 armStage = 2;
                 liftTimer.reset();
             }
+
+            if(gamepad1.left_bumper && armStage == 4 && liftTimer.seconds() > 0.5){
+                armStage = 3;
+                liftTimer.reset();
+            }
 //
             if(gamepad1.right_bumper && armStage == 0 && liftTimer.seconds() > 0.5){
                 armStage = 1;
@@ -200,6 +204,15 @@ public class NoDistTele extends LinearOpMode
                 liftTimer.reset();
             }
 
+            if(gamepad1.right_bumper && armStage == 3 && liftTimer.seconds() > 0.5){
+                armStage = 4;
+                liftTimer.reset();
+            }
+
+            if (gamepad1.b){
+                armStage = 1;
+            }
+
 
 
 
@@ -210,7 +223,7 @@ public class NoDistTele extends LinearOpMode
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.5);
+                clawUD.setPosition(0.53);
             }
             if(armStage == 1) {
                 armDeployTarget = -475;
@@ -222,6 +235,15 @@ public class NoDistTele extends LinearOpMode
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
+                armDeployTarget = -4050;
+
+                windMotor.setTargetPosition(-130);
+                windMotor.setPower(1);
+                windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                clawUD.setPosition(0.93);
+            }
+            if(armStage == 3) {
                 armDeployTarget = -3800;
 
                 windMotor.setTargetPosition(-130);
@@ -230,7 +252,7 @@ public class NoDistTele extends LinearOpMode
 
                 clawUD.setPosition(0.98);
             }
-            if(armStage == 3) {
+            if(armStage == 4) {
                 armDeployTarget = -3800;
 
                 windMotor.setTargetPosition(-1800);
@@ -308,7 +330,7 @@ public class NoDistTele extends LinearOpMode
                     clampClose = false;
                     liftTimer.reset();
                 }
-                else if (armStage == 2 || armStage == 3){
+                else if (armStage == 2 || armStage == 3 || armStage == 4){
                     clawLeft.setPosition(0.15);
                     clawRight.setPosition(0.05);
                     clampClose = false;
