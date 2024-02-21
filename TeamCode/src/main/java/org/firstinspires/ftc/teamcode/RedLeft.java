@@ -89,7 +89,7 @@ public class RedLeft extends LinearOpMode {
 
     // Define our start pose
     // This assumes we start at x: 15, y: 10, heading: 180 degrees
-    Pose2d startPose = new Pose2d(11, 61, Math.toRadians(-90));
+    Pose2d startPose = new Pose2d(-34, -61, Math.toRadians(90));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -176,38 +176,65 @@ public class RedLeft extends LinearOpMode {
 
         // Let's define our trajectories
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(21,36,Math.toRadians(-90)))
+                .splineToConstantHeading(new Vector2d(-46, -34), Math.toRadians(-90), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .splineToSplineHeading(new Pose2d(-30, -55, Math.toRadians(180)), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(0, -55), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(30, -55), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(52, -36), Math.toRadians(-90))
                 .build();
 
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
-        Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .back(10)
-                .build();
+//        Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
+//                .back(10)
+//                .build();
 
 //        Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
 //                .lineToLinearHeading(new Pose2d(49,55,Math.toRadians(180)))
 //                .build();
 
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(11,28,Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-34, -12, Math.toRadians(90)))
+
+
+                .build();
+        Trajectory trajectory2_MID = drive.trajectoryBuilder(startPose)
+
+                .lineToLinearHeading(new Pose2d(-34, -57, Math.toRadians(90)))
+
+
+                .build();
+        Trajectory trajectory3_MID = drive.trajectoryBuilder(startPose)
+
+                .lineToLinearHeading(new Pose2d(37, -57, Math.toRadians(90)))
+
+
+                .build();
+        Trajectory trajectory4_MID = drive.trajectoryBuilder(startPose)
+
+                .lineToLinearHeading(new Pose2d(52, -36, Math.toRadians(180)))
+
                 .build();
 
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
-        Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .back(10)
-                .build();
+//        Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
+//                .back(10)
+//                .build();
 
 //        Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
 //                .lineToLinearHeading(new Pose2d(49,55,Math.toRadians(180)))
 //                .build();
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(11, 40), Math.toRadians(-90), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(-47, -32, Math.toRadians(-360)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineTo(new Vector2d(4, 32), Math.toRadians(-150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToConstantHeading(new Vector2d(-33, -32), Math.toRadians(180))
+                .splineToSplineHeading(new Pose2d(-40, -2, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                .splineToConstantHeading(new Vector2d(37, -2), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(52, -39), Math.toRadians(180))
                 .build();
 //                                .splineTo(new Vector2d(13, 40), Math.toRadians(-135))
 //                                .splineTo(new Vector2d(7, 36), Math.toRadians(-135))
@@ -215,9 +242,9 @@ public class RedLeft extends LinearOpMode {
 //                                .lineToLinearHeading(new Pose2d(44, 57, Math.toRadians(180)))
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
-        Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .back(10)
-                .build();
+//        Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
+//                .back(10)
+//                .build();
 
 //        Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
 //                .lineToLinearHeading(new Pose2d(49, 55, Math.toRadians(180)))
@@ -239,6 +266,7 @@ public class RedLeft extends LinearOpMode {
         // Define a 1.5 second wait time
         //double waitTime1 = 1.5;
         ElapsedTime waitTimer1 = new ElapsedTime();
+        ElapsedTime waitTimer2 = new ElapsedTime();
 
         // Define the angle for turn 2
         //double turnAngle2 = Math.toRadians(720);
@@ -253,53 +281,7 @@ public class RedLeft extends LinearOpMode {
 
         int pos = 0;
 
-
-
-//        while(pos == 0 && !isStopRequested()){
-//            if (!rateLimit.hasExpired()) {
-//                continue;
-//            }
-//            rateLimit.reset();
-//            HuskyLens.Block[] blocks = huskyLens.blocks();
-//            telemetry.addData("Block count", blocks.length);
-//            for (int i = 0; i < blocks.length; i++) {
-//                int colorXValue = blocks[i].x;
-//                int colorYValue = blocks[i].y;
-//
-//                globalY = colorYValue;
-//                globalX = colorXValue;
-//
-//
-//                telemetry.addData("Block", blocks[i].toString());
-//                telemetry.addData("color X", colorXValue );
-//                telemetry.addData("color Y", colorYValue );
-//
-//
-//            }
-//
-//            if(!((globalX > 0 && globalX < 320) && (globalY > 0 && globalY < 240))){
-//                pos = 1;
-//            }
-//
-//            if((globalX > 120 && globalX < 150) && (globalY > 120 && globalY < 150)){
-//                pos = 2;//middle
-//            }
-//
-//            if((globalX > 245 && globalX < 275) && (globalY > 145 && globalY < 175)){
-//                pos = 3;//right
-//            }
-//
-//            //261,161
-//
-//            telemetry.update();
-//        }
-//
-//        pos = 2;
-
-
         waitForStart();
-
-
 
         if (isStopRequested()) return;
 
@@ -311,6 +293,7 @@ public class RedLeft extends LinearOpMode {
 
 
         waitTimer1.reset();
+        waitTimer2.reset();
 
 
 //
@@ -348,23 +331,26 @@ public class RedLeft extends LinearOpMode {
                         // Once `isBusy() == false`, the trajectory follower signals that it is finished
                         // We move on to the next state
                         // Make sure we use the async follow function
-                        if (!drive.isBusy()) {
-                            currentState = State.WAIT_1;
-                            waitTimer1.reset();
+                        if (waitTimer2.seconds() >= 8) {
+                            armStage = 1;
                         }
-                        break;
+                        if (waitTimer2.seconds() >= 20) {
+                            armStage = 2;
+                        }
+                        if (waitTimer2.seconds() >= 23) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
 
-                    case WAIT_1:
 
-                        if (waitTimer1.seconds() >= 1) {
+                        }
+                        if (waitTimer2.seconds() >= 26) {
                             armStage = 1;
                         }
 
-                        if (waitTimer1.seconds() >= 2) {
-                            currentState = State.TRAJECTORY_2;
-                            drive.followTrajectoryAsync(trajectory2);
-                        }
+
                         break;
+
+
 
 
                 }
@@ -378,17 +364,13 @@ public class RedLeft extends LinearOpMode {
                     case WAIT_0:
 
                         if (waitTimer1.seconds() >= 1) {
-                            currentState = State.TRAJECTORY_1_MID;
+                            currentState = State.TRAJECTORY_1;
                             drive.followTrajectoryAsync(trajectory1_MID);
                         }
+
                         break;
 
-                    case TRAJECTORY_1_MID:
-                        // Check if the drive class isn't busy
-                        // `isBusy() == true` while it's following the trajectory
-                        // Once `isBusy() == false`, the trajectory follower signals that it is finished
-                        // We move on to the next state
-                        // Make sure we use the async follow function
+                    case TRAJECTORY_1:
                         if (!drive.isBusy()) {
                             currentState = State.WAIT_1;
                             waitTimer1.reset();
@@ -396,16 +378,45 @@ public class RedLeft extends LinearOpMode {
                         break;
 
                     case WAIT_1:
-
                         if (waitTimer1.seconds() >= 1) {
                             armStage = 1;
                         }
 
-                        if (waitTimer1.seconds() >= 2) {
-                            currentState = State.TRAJECTORY_2_MID;
+                        if (waitTimer1.seconds() >= 2.5) {
+                            currentState = State.TRAJECTORY_1_MID;
                             drive.followTrajectoryAsync(trajectory2_MID);
                         }
+                        if (!drive.isBusy()) {
+                            currentState = State.TRAJECTORY_2;
+                            waitTimer1.reset();
+                        }
                         break;
+                    case TRAJECTORY_2:
+                        if (waitTimer1.seconds() >= 1) {
+                            drive.followTrajectoryAsync(trajectory3_MID);
+                        }
+                        if (!drive.isBusy()) {
+                            currentState = State.WAIT_2;
+                            waitTimer1.reset();
+                        }
+                        break;
+                    case WAIT_2:
+                        if (waitTimer1.seconds() >= 1) {
+                            drive.followTrajectoryAsync(trajectory4_MID);
+                        }
+                        if (waitTimer1.seconds() >= 5) {
+                           armStage = 2;
+                        }
+                        if (waitTimer1.seconds() >= 7) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
+                        }
+                        if (waitTimer1.seconds() >= 8) {
+                            armStage = 1;
+                        }
+                        break;
+
+
 
 
                 }
@@ -427,23 +438,22 @@ public class RedLeft extends LinearOpMode {
                         // Once `isBusy() == false`, the trajectory follower signals that it is finished
                         // We move on to the next state
                         // Make sure we use the async follow function
-                        if (!drive.isBusy()) {
-                            currentState = State.WAIT_1;
-                            waitTimer1.reset();
-                        }
-                        break;
-
-                    case WAIT_1:
-
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer2.seconds() >= 6) {
                             armStage = 1;
                         }
-
-                        if (waitTimer1.seconds() >= 2) {
-                            currentState = State.TRAJECTORY_2_R;
-                            drive.followTrajectoryAsync(trajectory2_RIGHT);
+                        if (waitTimer2.seconds() >= 20) {
+                            armStage = 2;
+                        }
+                        if (waitTimer2.seconds() >= 23) {
+                            clawLeft.setPosition(0.15);
+                            clawRight.setPosition(0.15);
+                        }
+                        if (waitTimer2.seconds() >= 26) {
+                            armStage = 1;
                         }
                         break;
+
+
 
 
                 }
@@ -505,7 +515,7 @@ public class RedLeft extends LinearOpMode {
             if(armStage == 0) {
                 armDeployTarget = 0;
 
-                windMotor.setTargetPosition(-100);
+                windMotor.setTargetPosition(-80);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -524,7 +534,7 @@ public class RedLeft extends LinearOpMode {
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
-                armDeployTarget = -4200;
+                armDeployTarget = -4000;
 
                 windMotor.setTargetPosition(0);
                 windMotor.setPower(1);
@@ -533,7 +543,7 @@ public class RedLeft extends LinearOpMode {
                 clawLeft.setPosition(0);
                 clawRight.setPosition(0);
 
-                clawUD.setPosition(0.85);
+                clawUD.setPosition(0.9);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;

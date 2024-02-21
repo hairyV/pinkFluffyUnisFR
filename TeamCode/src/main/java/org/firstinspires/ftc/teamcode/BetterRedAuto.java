@@ -153,13 +153,13 @@ public class BetterRedAuto extends LinearOpMode {
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .splineToSplineHeading(new Pose2d(0, -37, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, -36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(46, -36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .splineToConstantHeading(new Vector2d(3, -57), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-34.5, -57), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(3, -50), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-34.5, -50), Math.toRadians(180))
                 .splineToConstantHeading(new Vector2d(-54, -38), Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-45, -7), Math.toRadians(180))
                 .build();
@@ -183,7 +183,7 @@ public class BetterRedAuto extends LinearOpMode {
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .splineToSplineHeading(new Pose2d(15, -28, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, -30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(46, -30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
@@ -212,7 +212,7 @@ public class BetterRedAuto extends LinearOpMode {
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
                 .splineToSplineHeading(new Pose2d(22, -31.5, Math.toRadians(90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, -42, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(45, -42, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 //                .splineToSplineHeading(new Pose2d(22, -31.5, Math.toRadians(90)), Math.toRadians(0))
 //                .splineToSplineHeading(new Pose2d(41.5, -42, Math.toRadians(180)), Math.toRadians(0))
@@ -888,7 +888,7 @@ public class BetterRedAuto extends LinearOpMode {
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.85);
             }
             if(armStage == 2) {
                 armDeployTarget = -4100;
@@ -900,7 +900,7 @@ public class BetterRedAuto extends LinearOpMode {
 //                clawLeft.setPosition(0);
 //                clawRight.setPosition(0);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.85);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;
