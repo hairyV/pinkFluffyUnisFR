@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Config
-@TeleOp(name="NoDistTeleOp", group = "Concept")
+@TeleOp(name="NoDistTele", group = "Concept")
 //@Disabled
 public class NoDistTele extends LinearOpMode {
     //Instantiate PID controllers for arm and wind motors
@@ -209,8 +209,17 @@ public class NoDistTele extends LinearOpMode {
                 liftTimer.reset();
             }
 
+            if(gamepad1.right_bumper || gamepad1.left_bumper && armStage == 5 && liftTimer.seconds() > 0.5){
+                armStage = 2;
+                liftTimer.reset();
+            }
+
             if (gamepad1.b){
                 armStage = 1;
+            }
+
+            if (gamepad1.y){
+                armStage = 5;
             }
 
 
@@ -235,25 +244,25 @@ public class NoDistTele extends LinearOpMode {
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
-                armDeployTarget = -4050;
+                armDeployTarget = -3900;
 
-                windMotor.setTargetPosition(-130);
+                windMotor.setTargetPosition(-80);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.93);
+                clawUD.setPosition(0.95);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;
 
-                windMotor.setTargetPosition(-130);
+                windMotor.setTargetPosition(-1000);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.96);
             }
             if(armStage == 4) {
-                armDeployTarget = -3800;
+                armDeployTarget = -3700;
 
                 windMotor.setTargetPosition(-1800);
                 windMotor.setPower(1);
@@ -261,6 +270,16 @@ public class NoDistTele extends LinearOpMode {
 
                 clawUD.setPosition(0.98);
             }
+            if(armStage == 5) {
+                armDeployTarget = -4075;
+
+                windMotor.setTargetPosition(-80);
+                windMotor.setPower(1);
+                windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                clawUD.setPosition(0.93);
+            }
+
 
 //            if (gamepad1.right_bumper) { //move arm to scoring position
 //                armDeployTarget = -3000;
@@ -330,9 +349,9 @@ public class NoDistTele extends LinearOpMode {
                     clampClose = false;
                     liftTimer.reset();
                 }
-                else if (armStage == 2 || armStage == 3 || armStage == 4){
+                else if (armStage >= 2){
                     clawLeft.setPosition(0.15);
-                    clawRight.setPosition(0.05);
+                    clawRight.setPosition(0.06);
                     clampClose = false;
                     liftTimer.reset();
                 }

@@ -107,7 +107,7 @@ public class BlueLeft extends LinearOpMode {
 
     // Define our start pose
     // This assumes we start at x: 15, y: 10, heading: 180 degrees
-    Pose2d startPose = new Pose2d(-34, -61, Math.toRadians(-90));
+    Pose2d startPose = new Pose2d(-34, 61, Math.toRadians(-90));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -197,50 +197,56 @@ public class BlueLeft extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-40, 32, Math.toRadians(-360)))
                 .build();
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .lineToLinearHeading(new Pose2d(-35, 32, Math.toRadians(-360)))
+                .lineToLinearHeading(new Pose2d(-27, 32, Math.toRadians(-360)))
                 .build();
-        //drop purple
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
                 .lineToLinearHeading(new Pose2d(-40, 32, Math.toRadians(-360)))
                 .build();
         Trajectory trajectory4 = drive.trajectoryBuilder(trajectory3.end())
-                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(180)))
                 .build();
         Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
-                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(180)))
                 .build();
         Trajectory trajectory6 = drive.trajectoryBuilder(trajectory5.end())
-                .lineToLinearHeading(new Pose2d(52, 30, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(51, 35, Math.toRadians(180)))
                 .build();
+
+
+
 
 
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-34, 36, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-34, 29, Math.toRadians(-90)))
 
                 .build();
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-34, 58, Math.toRadians(180)))
 
                 .build();
         Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(37, 58, Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_MID = drive.trajectoryBuilder(trajectory3_MID.end())
-                .lineToLinearHeading(new Pose2d(52, 36, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(51, 30, Math.toRadians(180)))
                 .build();
+
+
+
+
 
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-47, 41, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-47, 38, Math.toRadians(-90)))
                 .build();
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(-34, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-34, 58, Math.toRadians(180)))
                 .build();
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(37, 57, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(37, 58, Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_RIGHT = drive.trajectoryBuilder(trajectory3_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(52, 45, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(51, 22, Math.toRadians(180)))
                 .build();
         //drop yellow
 
@@ -443,7 +449,7 @@ public class BlueLeft extends LinearOpMode {
                     case WAIT_3:
                         if (waitTimer1.seconds() >= 0.5) {
                             currentState = State.TRAJECTORY_4;
-                            drive.followTrajectoryAsync(trajectory3);
+                            drive.followTrajectoryAsync(trajectory3_MID);
                         }
                         break;
                     case TRAJECTORY_4:
@@ -455,7 +461,7 @@ public class BlueLeft extends LinearOpMode {
                     case WAIT_4:
                         if (waitTimer1.seconds() >= 0.5) {
                             currentState = State.TRAJECTORY_5;
-                            drive.followTrajectoryAsync(trajectory4);
+                            drive.followTrajectoryAsync(trajectory4_MID);
                         }
 
                         break;
@@ -651,7 +657,7 @@ public class BlueLeft extends LinearOpMode {
             if(armStage == 0) {
                 armDeployTarget = 0;
 
-                windMotor.setTargetPosition(-100);
+                windMotor.setTargetPosition(-70);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -670,16 +676,15 @@ public class BlueLeft extends LinearOpMode {
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
-                armDeployTarget = -4200;
+                armDeployTarget = -4025;
 
                 windMotor.setTargetPosition(0);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawLeft.setPosition(0);
-                clawRight.setPosition(0);
 
-                clawUD.setPosition(0.85);
+
+                clawUD.setPosition(0.9);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;
