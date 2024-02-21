@@ -475,7 +475,7 @@ public class BlueLeft extends LinearOpMode {
 
                     case WAIT_5:
                         if (waitTimer1.seconds() >= 1) {
-                            armStage = 2;
+                            armStage = 3;
                         }
                         if (waitTimer1.seconds() >= 2.25) {
                             clawLeft.setPosition(0.15);
@@ -687,13 +687,13 @@ public class BlueLeft extends LinearOpMode {
                 clawUD.setPosition(0.9);
             }
             if(armStage == 3) {
-                armDeployTarget = -3800;
+                armDeployTarget = -4050;
 
-                windMotor.setTargetPosition(-1800);
+                windMotor.setTargetPosition(0);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.9);
             }
 
             // You can add other lift update logic here
