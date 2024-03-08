@@ -182,11 +182,11 @@ public class BlueAuto extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .lineToLinearHeading(new Pose2d(41.5,36,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(42.25,39,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
-                .lineToLinearHeading(new Pose2d(49,55,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49,5,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
@@ -196,17 +196,17 @@ public class BlueAuto extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .lineToLinearHeading(new Pose2d(41.5,31,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(42.25,31,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(49,55,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49,5,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
                 .splineTo(new Vector2d(11, 40), Math.toRadians(-90), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineTo(new Vector2d(4, 32), Math.toRadians(-150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineTo(new Vector2d(2, 32), Math.toRadians(-150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 //                                .splineTo(new Vector2d(13, 40), Math.toRadians(-135))
@@ -216,12 +216,13 @@ public class BlueAuto extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(41.5
+                .lineToLinearHeading(new Pose2d(42.25
                         , 26, Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(49, 55, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49, 5
+                        , Math.toRadians(180)))
                 .build();
 
         // Define the angle to turn at
@@ -681,10 +682,9 @@ public class BlueAuto extends LinearOpMode {
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawLeft.setPosition(0);
-                clawRight.setPosition(0);
 
-                clawUD.setPosition(0.85);
+
+                clawUD.setPosition(0.92);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;

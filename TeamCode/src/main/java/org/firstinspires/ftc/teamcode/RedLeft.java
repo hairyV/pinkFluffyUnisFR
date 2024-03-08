@@ -180,7 +180,7 @@ public class RedLeft extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-40, -28, Math.toRadians(-360)))
                 .build();
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .lineToLinearHeading(new Pose2d(-30, -28, Math.toRadians(-360)))
+                .lineToLinearHeading(new Pose2d(-25, -28, Math.toRadians(-360)))
                 .build();
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
                 .lineToLinearHeading(new Pose2d(-40, -28, Math.toRadians(-360)))
@@ -192,7 +192,7 @@ public class RedLeft extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(37, -57, Math.toRadians(180)))
                 .build();
         Trajectory trajectory6 = drive.trajectoryBuilder(trajectory5.end())
-                .lineToLinearHeading(new Pose2d(49, -37, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49, -43, Math.toRadians(180)))
                 .build();
 
 
@@ -211,7 +211,7 @@ public class RedLeft extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(37, -58, Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_MID = drive.trajectoryBuilder(trajectory3_MID.end())
-                .lineToLinearHeading(new Pose2d(50, -30, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(50, -37, Math.toRadians(180)))
                 .build();
 
 
@@ -220,7 +220,7 @@ public class RedLeft extends LinearOpMode {
 
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-47, -38, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-45, -38, Math.toRadians(90)))
                 .build();
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
                 .lineToLinearHeading(new Pose2d(-34, -58, Math.toRadians(180)))
@@ -229,7 +229,7 @@ public class RedLeft extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(37, -58, Math.toRadians(180)))
                 .build();
         Trajectory trajectory4_RIGHT = drive.trajectoryBuilder(trajectory3_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(50, -22, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(50, -24, Math.toRadians(180)))
                 .build();
         //drop yellow
 
@@ -293,7 +293,7 @@ public class RedLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_1:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_2;
                             drive.followTrajectoryAsync(trajectory2);
                         }
@@ -426,7 +426,7 @@ public class RedLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_2:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_MID);
                         }
@@ -523,7 +523,7 @@ public class RedLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_2:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_RIGHT);
                         }
@@ -668,7 +668,7 @@ public class RedLeft extends LinearOpMode {
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
-                armDeployTarget = -4050;
+                armDeployTarget = -4000;
 
                 windMotor.setTargetPosition(0);
                 windMotor.setPower(1);

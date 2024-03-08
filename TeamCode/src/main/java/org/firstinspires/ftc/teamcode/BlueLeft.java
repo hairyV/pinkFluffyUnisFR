@@ -301,7 +301,7 @@ public class BlueLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_1:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_2;
                             drive.followTrajectoryAsync(trajectory2);
                         }
@@ -434,7 +434,7 @@ public class BlueLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_2:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_MID);
                         }
@@ -531,7 +531,7 @@ public class BlueLeft extends LinearOpMode {
                         }
                         break;
                     case WAIT_2:
-                        if (waitTimer1.seconds() >= 1) {
+                        if (waitTimer1.seconds() >= 7) {
                             currentState = State.TRAJECTORY_3;
                             drive.followTrajectoryAsync(trajectory2_RIGHT);
                         }

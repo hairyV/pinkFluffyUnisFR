@@ -176,20 +176,20 @@ public class RedAuto extends LinearOpMode {
 
         // Let's define our trajectories
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(11, -39), Math.toRadians(90), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineTo(new Vector2d(15, -35), Math.toRadians(180), SampleMecanumDrive.getVelocityConstraint(15, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineTo(new Vector2d(4, -32), Math.toRadians(150), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineTo(new Vector2d(0, -35), Math.toRadians(180), SampleMecanumDrive.getVelocityConstraint(15,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2 = drive.trajectoryBuilder(trajectory1.end())
-                .lineToLinearHeading(new Pose2d(46,-32,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49,-32,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3 = drive.trajectoryBuilder(trajectory2.end())
-                .lineToLinearHeading(new Pose2d(44, -50, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(44, -57, Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory1_MID = drive.trajectoryBuilder(startPose)
@@ -199,11 +199,11 @@ public class RedAuto extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2_MID = drive.trajectoryBuilder(trajectory1_MID.end())
-                .lineToLinearHeading(new Pose2d(48,-36,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49,-36,Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3_MID = drive.trajectoryBuilder(trajectory2_MID.end())
-                .lineToLinearHeading(new Pose2d(47, -57, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(44, -57, Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory1_RIGHT = drive.trajectoryBuilder(startPose)
@@ -216,7 +216,7 @@ public class RedAuto extends LinearOpMode {
         // Second trajectory
         // Ensure that we call trajectory1.end() as the start for this one
         Trajectory trajectory2_RIGHT = drive.trajectoryBuilder(trajectory1_RIGHT.end())
-                .lineToLinearHeading(new Pose2d(48, -45, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(49, -45, Math.toRadians(180)))
                 .build();
 
         Trajectory trajectory3_RIGHT = drive.trajectoryBuilder(trajectory2_RIGHT.end())
@@ -668,16 +668,15 @@ public class RedAuto extends LinearOpMode {
                 clawUD.setPosition(0.98);
             }
             if(armStage == 2) {
-                armDeployTarget = -4200;
+                armDeployTarget = -4100;
 
                 windMotor.setTargetPosition(0);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawLeft.setPosition(0);
-                clawRight.setPosition(0);
 
-                clawUD.setPosition(0.85);
+
+                clawUD.setPosition(0.92);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;

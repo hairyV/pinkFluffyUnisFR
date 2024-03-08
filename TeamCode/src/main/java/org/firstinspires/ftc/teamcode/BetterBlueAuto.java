@@ -151,7 +151,7 @@ public class BetterBlueAuto extends LinearOpMode {
         Trajectory trajectory1 = drive.trajectoryBuilder(startPose)
                 .splineToSplineHeading(new Pose2d(21, 36, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(47, 36, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
@@ -172,7 +172,7 @@ public class BetterBlueAuto extends LinearOpMode {
 
         Trajectory trajectory5 = drive.trajectoryBuilder(trajectory4.end())
                 .splineToConstantHeading(new Vector2d(15, 7), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(47, 37), Math.toRadians(180))
                 .build();
 
 //middle trajectories
@@ -181,7 +181,7 @@ public class BetterBlueAuto extends LinearOpMode {
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .splineToSplineHeading(new Pose2d(11, 28, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(47, 30, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 //                .splineToSplineHeading(new Pose2d(11, 28, Math.toRadians(-90)), Math.toRadians(0))
 //                .splineToSplineHeading(new Pose2d(41.5, 30, Math.toRadians(180)), Math.toRadians(0))
@@ -203,7 +203,7 @@ public class BetterBlueAuto extends LinearOpMode {
                 .build();
         Trajectory trajectory5_MID = drive.trajectoryBuilder(trajectory4_MID.end())
                 .splineToConstantHeading(new Vector2d(15, 31), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 31), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(47, 31), Math.toRadians(180))
                 .build();
 
 
@@ -214,7 +214,7 @@ public class BetterBlueAuto extends LinearOpMode {
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .splineToSplineHeading(new Pose2d(0, 37, Math.toRadians(180)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25,DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                .splineToSplineHeading(new Pose2d(41.5, 36, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
+                .splineToSplineHeading(new Pose2d(47, 36, Math.toRadians(-90)), Math.toRadians(0), SampleMecanumDrive.getVelocityConstraint(25, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                 .build();
 
@@ -233,7 +233,7 @@ public class BetterBlueAuto extends LinearOpMode {
                 .build();
         Trajectory trajectory5_RIGHT = drive.trajectoryBuilder(trajectory4_RIGHT.end())
                 .splineToConstantHeading(new Vector2d(15, 7), Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(41, 30), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(47, 30), Math.toRadians(180))
                 .build();
 
         ElapsedTime waitTimer1 = new ElapsedTime();
@@ -900,7 +900,7 @@ public class BetterBlueAuto extends LinearOpMode {
 //                clawLeft.setPosition(0);
 //                clawRight.setPosition(0);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.9);
             }
             if(armStage == 3) {
                 armDeployTarget = -3800;
@@ -909,16 +909,16 @@ public class BetterBlueAuto extends LinearOpMode {
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.98);
+                clawUD.setPosition(0.9);
             }
             if(armStage == 4) {
-                armDeployTarget = -609 ;
+                armDeployTarget = -630 ;
 
                 windMotor.setTargetPosition(0);
                 windMotor.setPower(1);
                 windMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-                clawUD.setPosition(0.5);
+                clawUD.setPosition(0.62);
             }
 
 
